@@ -23,7 +23,7 @@ import { useToast } from "@/hooks/use-toast";
 import { AdminRoutes } from "@/components/admin-routes";
 import { AdminAlerts } from "@/components/admin-alerts";
 import { AdminSchedules } from "@/components/admin-schedules";
-import { AdminAnalytics } from "@/components/admin-analytics";
+
 import { AdminUsers } from "@/components/admin-users";
 
 export function AdminDashboard() {
@@ -139,7 +139,7 @@ export function AdminDashboard() {
               <TabsTrigger value="alerts">Alerts</TabsTrigger>
               <TabsTrigger value="schedules">Schedules</TabsTrigger>
               <TabsTrigger value="users">Users</TabsTrigger>
-              <TabsTrigger value="analytics">Analytics</TabsTrigger>
+              
             </TabsList>
 
             <TabsContent value="routes" className="space-y-4">
@@ -158,9 +158,7 @@ export function AdminDashboard() {
               <AdminUsers />
             </TabsContent>
 
-            <TabsContent value="analytics" className="space-y-4">
-              <AdminAnalytics />
-            </TabsContent>
+            
           </Tabs>
         </div>
 

@@ -188,10 +188,7 @@ export function AdminUsers() {
         <h2 className="text-2xl font-bold">User Management</h2>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={resetForm}>
-              <Plus className="h-4 w-4 mr-2" />
-              Add User
-            </Button>
+
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>

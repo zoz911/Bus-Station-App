@@ -12,8 +12,8 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
   },
-<<<<<<< HEAD
-=======
+// <<<<<<< HEAD
+// =======
   // Fix static files issues
   output: 'standalone',
   trailingSlash: false,
@@ -27,7 +27,7 @@ const nextConfig = {
     }
     return config;
   },
->>>>>>> 7bbc05a (fixing and updating broken functions)
+// >>>>>>> 7bbc05a (fixing and updating broken functions)
 }
 
 export default nextConfig

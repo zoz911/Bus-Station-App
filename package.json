@@ -49,6 +49,7 @@
     "@testing-library/react": "latest",
     "@types/pg": "^8.15.4",
     "autoprefixer": "^10.4.20",
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
