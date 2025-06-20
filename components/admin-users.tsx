@@ -66,6 +66,7 @@ export function AdminUsers() {
     full_name: "",
     phone: "",
     status: "active",
+    password: "",
   });
 
   useEffect(() => {
@@ -89,29 +90,40 @@ export function AdminUsers() {
     try {
       const url = editingUser ? `/api/users/${editingUser.id}` : "/api/users";
       const method = editingUser ? "PUT" : "POST";
-
+      if (!editingUser && !formData.password) {
+        toast({
+          title: "Error",
+          description: "Password is required to create a new user.",
+          variant: "destructive",
+        });
+        return;
+      }
+      const body = { ...formData };
+      if (editingUser) delete body.password;
       const response = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(body),
       });
-
-      if (!response.ok) throw new Error("Failed to save user");
-
+      if (!response.ok) {
+        let errorMsg = "Failed to save user";
+        try {
+          const errorData = await response.json();
+          if (errorData && errorData.error) errorMsg = errorData.error;
+        } catch {}
+        throw new Error(errorMsg);
+      }
       toast({
         title: editingUser ? "User Updated" : "User Created",
-        description: `User has been ${
-          editingUser ? "updated" : "created"
-        } successfully`,
+        description: `User has been ${editingUser ? "updated" : "created"} successfully`,
       });
-
       setIsDialogOpen(false);
       fetchUsers();
       resetForm();
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error",
-        description: "Failed to save user",
+        description: error.message || "Failed to save user",
         variant: "destructive",
       });
     }
@@ -126,6 +138,7 @@ export function AdminUsers() {
       full_name: user.full_name,
       phone: user.phone,
       status: user.status,
+      password: "",
     });
     setIsDialogOpen(true);
   };
@@ -161,6 +174,7 @@ export function AdminUsers() {
       full_name: "",
       phone: "",
       status: "active",
+      password: "",
     });
   };
 
@@ -285,6 +299,17 @@ export function AdminUsers() {
                       <SelectItem value="suspended">Suspended</SelectItem>
                     </SelectContent>
                   </Select>
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    required={!editingUser}
+                    disabled={!!editingUser}
+                  />
                 </div>
               </div>
               <DialogFooter>
